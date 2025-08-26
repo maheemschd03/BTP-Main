@@ -4,6 +4,10 @@ from AI import AI
 app = Flask(__name__)
 
 @app.route("/")
+def landing():
+    return render_template("landing.html")
+
+@app.route("/main")
 def index():
     return render_template("index.html")
 

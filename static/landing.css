@@ -1,0 +1,109 @@
+/* General Body Styles */
+body {
+    font-family: 'Roboto Mono', monospace;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at 1px 1px, #333 1px, transparent 0);
+    background-size: 20px 20px;
+    text-align: center;
+}
+
+/* Header Styles */
+header {
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #00aaff;
+}
+
+.logo {
+    font-size: 32px;
+}
+
+header p {
+    margin: 8px 0 0;
+    font-size: 16px;
+    color: #888888;
+}
+
+/* Container Styles */
+.container {
+    background-color: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid #333;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 170, 255, 0.1);
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    overflow: hidden;
+    padding: 40px;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Main Content Styles */
+main p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    background: linear-gradient(45deg, #00aaff, #0077cc);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
+}
+
+.cta-button:hover {
+    background: linear-gradient(45deg, #0099e6, #0066b3);
+    box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.cta-button:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
+}
+
+/* Footer Styles */
+footer {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #666;
+}
