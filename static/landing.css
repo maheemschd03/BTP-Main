@@ -12,6 +12,16 @@ body {
     background-image: radial-gradient(circle at 1px 1px, #333 1px, transparent 0);
     background-size: 20px 20px;
     text-align: center;
+    animation: background-pan 20s linear infinite;
+}
+
+@keyframes background-pan {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
 }
 
 /* Header Styles */
@@ -19,6 +29,18 @@ header {
     padding: 20px;
     text-align: center;
     width: 100%;
+    animation: slideDown 1s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 header h1 {
@@ -34,6 +56,16 @@ header h1 {
 
 .logo {
     font-size: 32px;
+    animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 header p {
@@ -54,16 +86,14 @@ header p {
     margin: 20px auto;
     overflow: hidden;
     padding: 40px;
-    animation: slideIn 0.5s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
-@keyframes slideIn {
+@keyframes fadeIn {
     from {
-        transform: translateY(20px);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
         opacity: 1;
     }
 }
@@ -73,6 +103,7 @@ main p {
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 40px;
+    animation: fadeIn 2s ease-in-out;
 }
 
 .cta-button {
@@ -88,12 +119,24 @@ main p {
     display: inline-block;
     text-decoration: none;
     box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
+    animation: fadeInUp 2s ease-in-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .cta-button:hover {
     background: linear-gradient(45deg, #0099e6, #0066b3);
     box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3);
-    transform: translateY(-2px);
+    transform: translateY(-5px);
 }
 
 .cta-button:active {
@@ -106,4 +149,5 @@ footer {
     margin-top: 30px;
     font-size: 0.9rem;
     color: #666;
+    animation: fadeIn 3s ease-in-out;
 }
