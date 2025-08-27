@@ -78,7 +78,7 @@
             buttonText.style.display = "none";
             spinner.style.display = "block";
             submitButton.disabled = true;
-            responseOutput.innerHTML = "";
+            responseOutput.innerHTML = '<p class="placeholder">Thinking...</p>';
 
             try {
                 const response = await fetch("/query", {
@@ -94,6 +94,7 @@
                 if (data.error) {
                     responseOutput.innerHTML = `<p class="error">${data.error}</p>`;
                 } else {
+                    responseOutput.innerHTML = ""; // Clear the "Thinking..." message
                     const responseElement = document.createElement("p");
                     responseOutput.appendChild(responseElement);
                     typeWriter(responseElement, data.response);
