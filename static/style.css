@@ -10,6 +10,17 @@ body {
     min-height: 100vh;
     background-image: radial-gradient(circle at 1px 1px, #333 1px, transparent 0);
     background-size: 20px 20px;
+    animation: background-pan 20s linear infinite;
+    overflow-x: hidden; /* Keep this for layout purposes */
+}
+
+@keyframes background-pan {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
 }
 
 /* Header Styles */
@@ -17,51 +28,66 @@ header {
     padding: 20px;
     text-align: center;
     width: 100%;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #222;
+    animation: slideDown 0.7s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 header h1 {
     margin: 0;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 12px;
     color: #00aaff;
+    text-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
 }
 
 .logo {
-    font-size: 32px;
+    font-size: 36px;
+    animation: spin 5s linear infinite;
 }
 
 header p {
     margin: 8px 0 0;
     font-size: 16px;
     color: #888888;
+    animation: fadeIn 1s ease-in 0.5s backwards;
 }
 
 /* Container Styles */
 .container {
-    background-color: rgba(26, 26, 26, 0.8);
+    background-color: rgba(18, 18, 18, 0.8);
     backdrop-filter: blur(10px);
     border-radius: 16px;
     border: 1px solid #333;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 170, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 170, 255, 0.15);
     width: 100%;
     max-width: 800px;
     margin: 20px auto;
     overflow: hidden;
-    animation: slideIn 0.5s ease-in-out;
+    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-@keyframes slideIn {
+@keyframes popIn {
     from {
-        transform: translateY(20px);
+        transform: scale(0.8);
         opacity: 0;
     }
     to {
-        transform: translateY(0);
+        transform: scale(1);
         opacity: 1;
     }
 }
@@ -75,6 +101,18 @@ main {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    animation: slideUp 0.7s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 #prompt-input {
@@ -87,14 +125,15 @@ main {
     resize: vertical;
     box-sizing: border-box;
     width: 100%;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s ease;
     font-family: 'Roboto Mono', monospace;
 }
 
 #prompt-input:focus {
     outline: none;
     border-color: #00aaff;
-    box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+    box-shadow: 0 0 15px rgba(0, 170, 255, 0.3);
+    transform: translateY(-2px);
 }
 
 #submit-button {
@@ -106,18 +145,37 @@ main {
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
-    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    transition: all 0.3s ease;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 8px;
     box-shadow: 0 4px 15px rgba(0, 170, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+#submit-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.6s ease;
+    transform: translate(-50%, -50%) scale(0);
+}
+
+#submit-button:hover::before {
+    transform: translate(-50%, -50%) scale(1);
 }
 
 #submit-button:hover {
     background: linear-gradient(45deg, #0099e6, #0066b3);
-    box-shadow: 0 6px 20px rgba(0, 170, 255, 0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 170, 255, 0.4);
+    transform: translateY(-3px);
 }
 
 #submit-button:active {
@@ -127,6 +185,7 @@ main {
 
 #submit-button .button-text {
     display: inline;
+    transition: opacity 0.3s;
 }
 
 #submit-button .spinner-border {
@@ -142,6 +201,7 @@ main {
 /* Response Section Styles */
 .response-section {
     margin-top: 24px;
+    animation: fadeIn 1s ease-in;
 }
 
 #response-output {
@@ -155,12 +215,20 @@ main {
     overflow-y: auto;
     font-family: 'Source Code Pro', monospace;
     color: #d4d4d4;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#response-output:focus {
+    outline: none;
+    border-color: #00aaff;
 }
 
 #response-output .placeholder {
     color: #666;
     text-align: center;
     padding-top: 120px;
+    font-style: italic;
 }
 
 #response-output p {
@@ -168,6 +236,18 @@ main {
     padding: 12px;
     border-radius: 8px;
     display: inline;
+    animation: resultFadeIn 0.5s ease-out;
+}
+
+@keyframes resultFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Typing animation */
@@ -185,7 +265,7 @@ main {
 
 /* Fade-in Animation */
 .fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -209,6 +289,15 @@ main {
     color: #f44747;
     background-color: rgba(244, 71, 71, 0.1);
     border: 1px solid #f44747;
+    padding: 12px;
+    border-radius: 8px;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
 }
 
 /* Footer Styles */
@@ -216,6 +305,7 @@ footer {
     padding: 20px;
     text-align: center;
     width: 100%;
-    border-top: 1px solid #333;
+    border-top: 1px solid #222;
     color: #666;
+    animation: slideUp 0.7s ease-out 1s backwards;
 }
