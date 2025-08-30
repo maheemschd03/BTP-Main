@@ -2,34 +2,40 @@ from google import genai
 from google.genai import types
 from DB import run_query
 
-
-client = genai.Client(api_key="AIzaSyBjDFhGbbAp948PqeaZFZ1YxR5hR4uxpSk")
+client = genai.Client(api_key="AIzaSyCGRagRWD_XWzdlR6ZGgJfyeKZM6agwMw4")
 config = types.GenerateContentConfig(tools=[run_query])
 
-def AI(query):
 
+def AI(query):
+    # Start the conversation
     response = client.models.generate_content(
         model="gemini-2.5-flash",
-        contents=f"{query}",
+        contents=query,
         config=config,
     )
 
-    #print(response.text)
+    # Check if the response contains function calls
+    while response.function_calls:
+        # Execute each function call
+        for function_call in response.function_calls:
+            func_name = function_call.name
+            args = function_call.args
+
+            # Execute the function
+            if func_name == "run_query":
+                result = run_query(**args)
+            else:
+                result = f"Error: Unknown function {func_name}"
+
+            # Send the function result back to the model
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=[query, response, types.Part(function_response=types.FunctionResponse(
+                    name=func_name,
+                    response={"result": result}
+                ))],
+                config=config,
+            )
+
+    # Now the response should contain text
     return response.text
-
-
-def convo():
-    user = input("Enter the query : ")
-
-    complete_command = f'''
-
-    user = {user}
-
-    Run an SQL command. also you can use always use sql quries to know the schema if unsure. like you can always use desc table_name etc.
-    Always try to solve all the problems yourself first you have all the neccsary tools.
-
-
-
-    '''
-
-    AI(complete_command)
