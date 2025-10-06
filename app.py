@@ -1,7 +1,13 @@
-from flask import Flask, render_template, request, jsonify
+import os
+from flask import Flask, render_template, request, jsonify, flash, redirect, url_for
+from werkzeug.utils import secure_filename
 from AI import AI
+from add_csv_data import upload_csv_to_postgres
 
 app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+UPLOAD_FOLDER = 'uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/")
 def landing():
@@ -10,6 +16,26 @@ def landing():
 @app.route("/main")
 def index():
     return render_template("index.html")
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        if 'csv_file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['csv_file']
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and file.filename.endswith('.csv'):
+            filename = secure_filename(file.filename)
+            csv_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(csv_path)
+            table_name = request.form['table_name']
+            message = upload_csv_to_postgres(csv_path, table_name)
+            flash(message)
+            return redirect(url_for('upload_file'))
+    return render_template('upload.html')
 
 @app.route("/query", methods=["POST"])
 def query():
