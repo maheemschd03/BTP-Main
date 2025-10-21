@@ -17,6 +17,7 @@ def AI(query):
     # Check if the response contains function calls
     while response.function_calls:
         # Execute each function call
+        print(response.text)
         for function_call in response.function_calls:
             func_name = function_call.name
             args = function_call.args
