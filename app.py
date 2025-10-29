@@ -34,7 +34,7 @@ def upload_file():
             table_name = request.form['table_name']
             message = upload_csv_to_postgres(csv_path, table_name)
             flash(message)
-            return redirect(url_for('upload_file'))
+            return redirect(url_for('landing'))
     return render_template('upload.html')
 
 @app.route("/query", methods=["POST"])

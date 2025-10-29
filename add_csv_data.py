@@ -29,7 +29,7 @@ def upload_csv_to_postgres(csv_path, table_name, db_name="HumanDB", user="postgr
 
         # 3. Upload DataFrame to PostgreSQL
         df.to_sql(table_name, engine, if_exists=if_exists, index=False)
-        return f"✅ Data uploaded successfully to table '{table_name}' in database '{db_name}'."
+        return f"Data uploaded successfully to table '{table_name}' in database '{db_name}'."
 
     except Exception as e:
         return f"❌ Error: {e}"
