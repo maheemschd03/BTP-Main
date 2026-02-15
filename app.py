@@ -5,6 +5,7 @@ from AI import AI
 from add_csv_data import upload_csv_to_postgres
 
 app = Flask(__name__)
+
 app.secret_key = 'supersecretkey'
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER

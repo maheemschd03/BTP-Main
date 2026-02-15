@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 from DB import run_query
 
-client = genai.Client(api_key="AIzaSyCGRagRWD_XWzdlR6ZGgJfyeKZM6agwMw4")
+client = genai.Client(api_key="AIzaSyBJsGsTILf96oxFBhZkmyUZOGY_hLt3j2E")
 config = types.GenerateContentConfig(tools=[run_query])
 
 
